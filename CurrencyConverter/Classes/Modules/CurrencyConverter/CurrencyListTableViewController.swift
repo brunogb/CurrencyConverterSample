@@ -60,6 +60,8 @@ class CurrencyListTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let validViewModel = viewModel.currencyViewModel(for: indexPath) else { return }
         didSelectCurrencyHandler(validViewModel)
+        tableView.scrollToRow(at: CurrencyListViewModel.CurrencyListSection.selectedCurrencyIndexPath, at: .top, animated: true)
+        
     }
 
     private func updateTable(comparingOldData oldData: CurrencyListViewModel) {

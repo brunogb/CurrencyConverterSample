@@ -26,6 +26,9 @@ class CurrencyConverterService {
                 return CurrencyConverter(base: currency, fxTable: response.rates)
             })
             onUpdate(converterResult)
+            DispatchQueue.global().asyncAfter(deadline: .now() + 1, execute: {
+                self.requestUpdates(for: currency, onUpdate: onUpdate)
+            })
         }
     }
 

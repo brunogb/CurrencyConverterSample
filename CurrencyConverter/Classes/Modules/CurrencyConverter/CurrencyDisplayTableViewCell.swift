@@ -14,7 +14,9 @@ class CurrencyDisplayTableViewCell: UITableViewCell, UITextFieldDelegate {
         didSet {
             textLabel?.text = viewModel?.currency.code
             detailTextLabel?.text = viewModel?.currency.name
-            moneyTextField.doubleValue = viewModel?.value ?? 0
+            if !moneyTextField.isEditing {
+                moneyTextField.doubleValue = viewModel?.value ?? 0
+            }
             moneyTextField.isEnabled = viewModel?.editable ?? false
         }
     }
