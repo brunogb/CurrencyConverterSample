@@ -19,11 +19,14 @@ class CurrencyDisplayTableViewCell: UITableViewCell {
         }
     }
 
+    var onCurrencyValueChanged: ((Float)-> Void)?
+
     private lazy var moneyTextField: UITextField = {
         let textField = UITextField(frame: .zero)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textAlignment = .right
         textField.widthAnchor.constraint(lessThanOrEqualToConstant: 160).isActive = true
+        textField.addTarget(self, action: #selector(handleEditingChanged), for: .editingChanged)
         return textField
     }()
 
@@ -44,6 +47,10 @@ class CurrencyDisplayTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         viewModel = nil
+    }
+
+    @objc private func handleEditingChanged() {
+        onCurrencyValueChanged?(Float(moneyTextField.text ?? "") ?? 0)
     }
 
 }

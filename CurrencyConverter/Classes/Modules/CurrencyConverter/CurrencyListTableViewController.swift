@@ -11,6 +11,7 @@ import UIKit
 class CurrencyListTableViewController: UITableViewController {
 
     var didSelectCurrencyHandler: (CurrencyViewModel)-> Void = { _ in }
+    var currentValueChanged: (Float)-> Void = { _ in }
 
     var viewModel: CurrencyListViewModel = .loading {
         didSet {
@@ -44,6 +45,15 @@ class CurrencyListTableViewController: UITableViewController {
         guard let cell = cell as? CurrencyDisplayTableViewCell,
             let currencyViewModel = viewModel.currencyViewModel(for: indexPath) else { return }
         cell.viewModel = currencyViewModel
+        if currencyViewModel.editable {
+            cell.onCurrencyValueChanged = { [unowned self] value in
+                self.currentValueChanged(value)
+            }
+        }
+        else {
+            cell.onCurrencyValueChanged = nil
+        }
+
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
