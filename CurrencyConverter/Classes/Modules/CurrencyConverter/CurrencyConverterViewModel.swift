@@ -21,14 +21,18 @@ struct CurrencyConverterViewModel {
     }
 
     func listViewModel()-> CurrencyListViewModel {
-        let selected = currencyViewModel(currency: selectedCurrency, amount: value)
-        let list = converter.listOfCurrencies.map { currencyViewModel(currency: $0, amount: value) }
+        let selected = currencyViewModel(currency: selectedCurrency, amount: value, editable: true)
+        let list: [CurrencyViewModel] = converter.listOfCurrencies.compactMap {
+            guard $0.code != selectedCurrency.code else { return nil }
+            return currencyViewModel(currency: $0, amount: value, editable: false)
+        }
         return .loaded(selected: selected, list: list)
     }
 
-    func currencyViewModel(currency: Currency, amount: Float)-> CurrencyViewModel {
+    func currencyViewModel(currency: Currency, amount: Float, editable: Bool)-> CurrencyViewModel {
         let viewModel = CurrencyViewModel(currency: currency,
-                                          value: converter.convert(to: currency, amount: amount))
+                                          value: converter.convert(to: currency, amount: amount),
+                                          editable: editable)
         return viewModel
     }
 

@@ -15,6 +15,7 @@ class CurrencyDisplayTableViewCell: UITableViewCell {
             textLabel?.text = viewModel?.currency.code
             detailTextLabel?.text = viewModel?.currency.name
             moneyTextField.text = "\(viewModel?.value ?? 0)"
+            moneyTextField.isEnabled = viewModel?.editable ?? false
         }
     }
 

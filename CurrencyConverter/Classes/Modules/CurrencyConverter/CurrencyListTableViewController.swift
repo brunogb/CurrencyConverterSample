@@ -10,6 +10,8 @@ import UIKit
 
 class CurrencyListTableViewController: UITableViewController {
 
+    var didSelectCurrencyHandler: (CurrencyViewModel)-> Void = { _ in }
+
     var viewModel: CurrencyListViewModel = .loading {
         didSet {
             DispatchQueue.main.async {
@@ -22,6 +24,7 @@ class CurrencyListTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.rowHeight = 64
         tableView.separatorStyle = .none
+        tableView.keyboardDismissMode = .interactive
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -41,6 +44,12 @@ class CurrencyListTableViewController: UITableViewController {
         guard let cell = cell as? CurrencyDisplayTableViewCell,
             let currencyViewModel = viewModel.currencyViewModel(for: indexPath) else { return }
         cell.viewModel = currencyViewModel
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let validViewModel = viewModel.currencyViewModel(for: indexPath) else { return }
+        didSelectCurrencyHandler(validViewModel)
     }
 
     private func updateTable(fromOldData: CurrencyListViewModel) {

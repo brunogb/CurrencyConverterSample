@@ -51,6 +51,13 @@ class CurrencyConverterViewController: UIViewController {
                                                        value: self.viewModel?.value)
             }
         }
+        tableViewController.didSelectCurrencyHandler = { currencyModel in
+            guard let viewModel = self.viewModel else { return }
+            let newConverter = viewModel.converter.converterChangingCurrent(currency: currencyModel.currency)
+            self.viewModel = CurrencyConverterViewModel(converter: newConverter,
+                                                        selectedCurrency: currencyModel.currency,
+                                                        value: currencyModel.value)
+        }
     }
 
     private func updateTable(with model: CurrencyConverterViewModel?) {

@@ -12,6 +12,7 @@ struct CurrencyViewModel {
 
     let currency: Currency
     let value: Float
+    let editable: Bool
 
 }
 
@@ -19,6 +20,11 @@ enum CurrencyListViewModel {
 
     case loaded(selected: CurrencyViewModel, list: [CurrencyViewModel])
     case loading
+
+    enum CurrencyListSection: Int {
+        case principal
+        case others
+    }
 
 }
 
@@ -37,7 +43,7 @@ extension CurrencyListViewModel {
         switch self {
         case .loading:
             return 0
-        case .loaded where section == 0:
+        case .loaded where section == CurrencyListSection.principal.rawValue:
             return 1
         case .loaded(_, let list):
             return list.count
@@ -56,9 +62,9 @@ extension CurrencyListViewModel {
     func currencyViewModel(for indexPath: IndexPath)-> CurrencyViewModel? {
         guard case let .loaded(selected, list) = self else { return nil }
         switch (indexPath.section, indexPath.row) {
-        case (0,_):
+        case (CurrencyListSection.principal.rawValue,_):
             return selected
-        case (1, _) where indexPath.row < list.count :
+        case (CurrencyListSection.others.rawValue, _) where indexPath.row < list.count :
             return list[indexPath.row]
         default:
             return nil

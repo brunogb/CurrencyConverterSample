@@ -11,21 +11,30 @@ import UIKit
 struct CurrencyConverter {
 
     let base: Currency
+    let current: Currency
     private let fxTable: [String: Float]
 
     private(set) var listOfCurrencies: [Currency] = []
 
-    init(base: Currency, fxTable: [String: Float]) {
+    init(base: Currency, current: Currency? = nil, fxTable: [String: Float]) {
         self.base = base
-        listOfCurrencies = fxTable.map { Currency(code: $0.key) }
+        self.current = current ?? base
         var baseFxTable = fxTable
         baseFxTable[base.code] = 1
+        listOfCurrencies = baseFxTable.map { Currency(code: $0.key) }
         self.fxTable = baseFxTable
     }
 
+    func converterChangingCurrent(currency: Currency)-> CurrencyConverter {
+        return CurrencyConverter(base: base, current: currency, fxTable: fxTable)
+    }
+
     func convert(to currency: Currency, amount: Float)-> Float {
-        let fx = fxTable[currency.code, default: 0]
-        return fx * amount
+        let baseToCurrentFx = fxTable[current.code, default: 0]
+        let baseToCurrencyFx = fxTable[currency.code, default: 0]
+        let baseConverted = amount * baseToCurrencyFx
+        let currentConverted = baseConverted / baseToCurrentFx
+        return currentConverted
     }
 
 }
