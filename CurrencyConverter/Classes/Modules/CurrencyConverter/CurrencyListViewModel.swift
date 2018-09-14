@@ -11,7 +11,7 @@ import UIKit
 struct CurrencyViewModel {
 
     let currency: Currency
-    let value: Float
+    let value: Double
     let editable: Bool
 
 }
@@ -24,6 +24,12 @@ enum CurrencyListViewModel {
     enum CurrencyListSection: Int {
         case principal
         case others
+
+        static let selectedCurrencyIndexPath: IndexPath = IndexPath(row: 0, section: CurrencyListSection.principal.rawValue)
+        func indexPath(for row: Int)-> IndexPath {
+            if case .principal = self { return CurrencyListSection.selectedCurrencyIndexPath }
+            return IndexPath(row: row, section: CurrencyListSection.others.rawValue)
+        }
     }
 
 }
@@ -39,6 +45,26 @@ extension CurrencyListViewModel {
         }
     }
 
+    var currency: Currency? {
+        if case let .loaded(selected, _) = self {
+            return selected.currency
+        }
+        return nil
+    }
+
+    var otherCurrencies: [CurrencyViewModel] {
+        if case let .loaded(_, list) = self {
+            return list
+        }
+        return []
+    }
+
+    func index(for currency: Currency)-> Int? {
+        return otherCurrencies.firstIndex(where: { (model) -> Bool in
+            return model.currency == currency
+        })
+    }
+
     func numberOfRows(in section: Int)-> Int {
         switch self {
         case .loading:
@@ -48,6 +74,10 @@ extension CurrencyListViewModel {
         case .loaded(_, let list):
             return list.count
         }
+    }
+
+    func sameSelectedCurrency(as otherModel: CurrencyListViewModel)-> Bool {
+        return currency == otherModel.currency
     }
 
     func cellType()-> UITableViewCell.Type {

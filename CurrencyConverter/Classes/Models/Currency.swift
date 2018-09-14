@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Currency {
+struct Currency: Equatable {
 
     private static var currencyNames: [String: String] = [:]
 

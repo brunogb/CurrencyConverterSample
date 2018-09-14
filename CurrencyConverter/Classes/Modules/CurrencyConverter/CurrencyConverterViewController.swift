@@ -40,27 +40,35 @@ class CurrencyConverterViewController: UIViewController {
         super.viewDidLoad()
         updateTable(with: viewModel)
         service.requestUpdates(for: "EUR") { [unowned self] (result) in
-            switch result {
-            case .error(let error):
-                self.viewModel = nil
-                print("Error: \(error)")
-                break
-            case .success(let converter):
-                self.viewModel = CurrencyConverterViewModel(converter: converter,
-                                                       selectedCurrency: self.viewModel?.selectedCurrency,
-                                                       value: self.viewModel?.value)
-            }
+            self.handleService(result: result)
         }
         tableViewController.didSelectCurrencyHandler = { [unowned self] currencyModel in
-            guard let viewModel = self.viewModel else { return }
-            let newConverter = viewModel.converter.converterChangingCurrent(currency: currencyModel.currency)
-            self.viewModel = CurrencyConverterViewModel(converter: newConverter,
-                                                        selectedCurrency: currencyModel.currency,
-                                                        value: currencyModel.value)
+            self.setupViewModel(from: currencyModel)
         }
         tableViewController.currentValueChanged = { [unowned self] value in
             self.viewModel?.value = value
         }
+    }
+
+    private func handleService(result: Result<CurrencyConverter>) {
+        switch result {
+        case .error(let error):
+            self.viewModel = nil
+            print("Error: \(error)")
+            break
+        case .success(let converter):
+            self.viewModel = CurrencyConverterViewModel(converter: converter,
+                                                        selectedCurrency: self.viewModel?.selectedCurrency,
+                                                        value: self.viewModel?.value)
+        }
+    }
+
+    private func setupViewModel(from currencyModel: CurrencyViewModel) {
+        guard let viewModel = self.viewModel else { return }
+        let newConverter = viewModel.converter.converterChangingCurrent(currency: currencyModel.currency)
+        self.viewModel = CurrencyConverterViewModel(converter: newConverter,
+                                                    selectedCurrency: currencyModel.currency,
+                                                    value: currencyModel.value)
     }
 
     private func updateTable(with model: CurrencyConverterViewModel?) {

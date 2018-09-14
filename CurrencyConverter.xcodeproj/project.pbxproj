@@ -29,6 +29,11 @@
 		79B7A5D2214BE3EB00C0956D /* CurrencyConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5D1214BE3EB00C0956D /* CurrencyConverter.swift */; };
 		79B7A5D4214BE4BA00C0956D /* CurrencyConverterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5D3214BE4BA00C0956D /* CurrencyConverterViewModel.swift */; };
 		79B7A5D9214BF2D400C0956D /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5D8214BF2D400C0956D /* Currency.swift */; };
+		79B7A5DC214C178B00C0956D /* CurrencyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5DB214C178B00C0956D /* CurrencyTextField.swift */; };
+		79B7A5DE214C186E00C0956D /* NumberFormmater+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5DD214C186E00C0956D /* NumberFormmater+Style.swift */; };
+		79B7A5E1214C189E00C0956D /* String+Digits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5E0214C189E00C0956D /* String+Digits.swift */; };
+		79B7A5E3214C18D000C0956D /* Collection+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5E2214C18D000C0956D /* Collection+Map.swift */; };
+		79B7A5E5214C18FC00C0956D /* Decimal+Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5E4214C18FC00C0956D /* Decimal+Number.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +73,11 @@
 		79B7A5D1214BE3EB00C0956D /* CurrencyConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverter.swift; sourceTree = "<group>"; };
 		79B7A5D3214BE4BA00C0956D /* CurrencyConverterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterViewModel.swift; sourceTree = "<group>"; };
 		79B7A5D8214BF2D400C0956D /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		79B7A5DB214C178B00C0956D /* CurrencyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTextField.swift; sourceTree = "<group>"; };
+		79B7A5DD214C186E00C0956D /* NumberFormmater+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormmater+Style.swift"; sourceTree = "<group>"; };
+		79B7A5E0214C189E00C0956D /* String+Digits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Digits.swift"; sourceTree = "<group>"; };
+		79B7A5E2214C18D000C0956D /* Collection+Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Map.swift"; sourceTree = "<group>"; };
+		79B7A5E4214C18FC00C0956D /* Decimal+Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+Number.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +140,7 @@
 		79B7A5AA214BB66800C0956D /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				79B7A5DA214C177200C0956D /* Views */,
 				79B7A5D7214BF2CA00C0956D /* Models */,
 				79B7A5C0214BC16700C0956D /* Extensions */,
 				79B7A5B1214BB86D00C0956D /* Network */,
@@ -192,6 +203,7 @@
 		79B7A5C0214BC16700C0956D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				79B7A5DF214C189300C0956D /* Swift */,
 				79B7A5C6214BC67500C0956D /* Foundation */,
 				79B7A5C1214BC16C00C0956D /* UIKit */,
 			);
@@ -212,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				79B7A5C7214BC68D00C0956D /* JSONDecoder+dateDecoder.swift */,
+				79B7A5DD214C186E00C0956D /* NumberFormmater+Style.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -222,6 +235,24 @@
 				79B7A5D8214BF2D400C0956D /* Currency.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		79B7A5DA214C177200C0956D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				79B7A5DB214C178B00C0956D /* CurrencyTextField.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		79B7A5DF214C189300C0956D /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				79B7A5E0214C189E00C0956D /* String+Digits.swift */,
+				79B7A5E2214C18D000C0956D /* Collection+Map.swift */,
+				79B7A5E4214C18FC00C0956D /* Decimal+Number.swift */,
+			);
+			path = Swift;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,20 +359,25 @@
 				79B7A5CA214BCEF700C0956D /* CurrencyListViewModel.swift in Sources */,
 				79B7A5CC214BD2E100C0956D /* UITableView+dequeue.swift in Sources */,
 				79B7A5BF214BBEB300C0956D /* CurrencyConverterListResponse.swift in Sources */,
+				79B7A5E3214C18D000C0956D /* Collection+Map.swift in Sources */,
 				79B7A5C5214BC19400C0956D /* UIViewController+Container.swift in Sources */,
 				79B7A5B7214BBCB400C0956D /* Result.swift in Sources */,
 				79B7A5B3214BB88900C0956D /* CurrencyListResource.swift in Sources */,
 				79B7A5D2214BE3EB00C0956D /* CurrencyConverter.swift in Sources */,
+				79B7A5E1214C189E00C0956D /* String+Digits.swift in Sources */,
 				79B7A5AE214BB69E00C0956D /* CurrencyConverterViewController.swift in Sources */,
 				79B7A5B0214BB83600C0956D /* CurrencyListTableViewController.swift in Sources */,
 				79B7A5D9214BF2D400C0956D /* Currency.swift in Sources */,
 				79B7A5BC214BBE5600C0956D /* CurrencyConverterResources.swift in Sources */,
+				79B7A5DE214C186E00C0956D /* NumberFormmater+Style.swift in Sources */,
 				79B7A5CE214BD56900C0956D /* CurrencyDisplayTableViewCell.swift in Sources */,
 				79B7A5C3214BC17C00C0956D /* UIView+Constraints.swift in Sources */,
 				79B7A5B5214BB8A300C0956D /* Requester.swift in Sources */,
+				79B7A5E5214C18FC00C0956D /* Decimal+Number.swift in Sources */,
 				79B7A5D4214BE4BA00C0956D /* CurrencyConverterViewModel.swift in Sources */,
 				79B7A5D0214BD67700C0956D /* CurrencyConverterService.swift in Sources */,
 				79B7A58B214BB62700C0956D /* AppDelegate.swift in Sources */,
+				79B7A5DC214C178B00C0956D /* CurrencyTextField.swift in Sources */,
 				79B7A5C8214BC68D00C0956D /* JSONDecoder+dateDecoder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

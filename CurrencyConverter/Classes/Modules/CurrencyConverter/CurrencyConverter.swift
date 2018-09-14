@@ -12,11 +12,11 @@ struct CurrencyConverter {
 
     let base: Currency
     let current: Currency
-    private let fxTable: [String: Float]
+    private let fxTable: [String: Double]
 
     private(set) var listOfCurrencies: [Currency] = []
 
-    init(base: Currency, current: Currency? = nil, fxTable: [String: Float]) {
+    init(base: Currency, current: Currency? = nil, fxTable: [String: Double]) {
         self.base = base
         self.current = current ?? base
         var baseFxTable = fxTable
@@ -29,7 +29,7 @@ struct CurrencyConverter {
         return CurrencyConverter(base: base, current: currency, fxTable: fxTable)
     }
 
-    func convert(to currency: Currency, amount: Float)-> Float {
+    func convert(to currency: Currency, amount: Double)-> Double {
         let baseToCurrentFx = fxTable[current.code, default: 0]
         let baseToCurrencyFx = fxTable[currency.code, default: 0]
         let baseConverted = amount * baseToCurrencyFx

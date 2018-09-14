@@ -8,23 +8,25 @@
 
 import UIKit
 
-class CurrencyDisplayTableViewCell: UITableViewCell {
+class CurrencyDisplayTableViewCell: UITableViewCell, UITextFieldDelegate {
 
     var viewModel: CurrencyViewModel? {
         didSet {
             textLabel?.text = viewModel?.currency.code
             detailTextLabel?.text = viewModel?.currency.name
-            moneyTextField.text = "\(viewModel?.value ?? 0)"
+            moneyTextField.doubleValue = viewModel?.value ?? 0
             moneyTextField.isEnabled = viewModel?.editable ?? false
         }
     }
 
-    var onCurrencyValueChanged: ((Float)-> Void)?
+    var onCurrencyValueChanged: ((Double)-> Void)?
 
-    private lazy var moneyTextField: UITextField = {
-        let textField = UITextField(frame: .zero)
+    private lazy var moneyTextField: CurrencyTextField = {
+        let textField = CurrencyTextField(frame: .zero)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textAlignment = .right
+        textField.keyboardType = .decimalPad
+        textField.delegate = self
         textField.widthAnchor.constraint(lessThanOrEqualToConstant: 160).isActive = true
         textField.addTarget(self, action: #selector(handleEditingChanged), for: .editingChanged)
         return textField
@@ -50,7 +52,7 @@ class CurrencyDisplayTableViewCell: UITableViewCell {
     }
 
     @objc private func handleEditingChanged() {
-        onCurrencyValueChanged?(Float(moneyTextField.text ?? "") ?? 0)
+        onCurrencyValueChanged?(moneyTextField.doubleValue)
     }
 
 }

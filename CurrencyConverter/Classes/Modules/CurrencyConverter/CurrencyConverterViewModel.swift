@@ -12,9 +12,9 @@ struct CurrencyConverterViewModel {
 
     let converter: CurrencyConverter
     var selectedCurrency: Currency
-    var value: Float
+    var value: Double
 
-    init(converter: CurrencyConverter, selectedCurrency: Currency? = nil, value: Float? = nil) {
+    init(converter: CurrencyConverter, selectedCurrency: Currency? = nil, value: Double? = nil) {
         self.converter = converter
         self.selectedCurrency = selectedCurrency ?? converter.base
         self.value = value ?? 100
@@ -29,7 +29,7 @@ struct CurrencyConverterViewModel {
         return .loaded(selected: selected, list: list)
     }
 
-    func currencyViewModel(currency: Currency, amount: Float, editable: Bool)-> CurrencyViewModel {
+    func currencyViewModel(currency: Currency, amount: Double, editable: Bool)-> CurrencyViewModel {
         let viewModel = CurrencyViewModel(currency: currency,
                                           value: converter.convert(to: currency, amount: amount),
                                           editable: editable)

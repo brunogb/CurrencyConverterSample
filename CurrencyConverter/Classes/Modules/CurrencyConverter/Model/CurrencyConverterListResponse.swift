@@ -12,6 +12,6 @@ struct CurrencyConverterListResponse: Decodable {
 
     let base: String
     let date: Date
-    let rates: [String: Float]
+    let rates: [String: Double]
 
 }
