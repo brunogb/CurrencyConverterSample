@@ -13,7 +13,6 @@
 		79B7A5A0214BB62B00C0956D /* CurrencyConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A59F214BB62B00C0956D /* CurrencyConverterTests.swift */; };
 		79B7A5AE214BB69E00C0956D /* CurrencyConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5AD214BB69E00C0956D /* CurrencyConverterViewController.swift */; };
 		79B7A5B0214BB83600C0956D /* CurrencyListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5AF214BB83600C0956D /* CurrencyListTableViewController.swift */; };
-		79B7A5B3214BB88900C0956D /* CurrencyListResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5B2214BB88900C0956D /* CurrencyListResource.swift */; };
 		79B7A5B5214BB8A300C0956D /* Requester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5B4214BB8A300C0956D /* Requester.swift */; };
 		79B7A5B7214BBCB400C0956D /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5B6214BBCB400C0956D /* Result.swift */; };
 		79B7A5B9214BBE2900C0956D /* JSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5B8214BBE2900C0956D /* JSONResource.swift */; };
@@ -34,6 +33,9 @@
 		79B7A5E1214C189E00C0956D /* String+Digits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5E0214C189E00C0956D /* String+Digits.swift */; };
 		79B7A5E3214C18D000C0956D /* Collection+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5E2214C18D000C0956D /* Collection+Map.swift */; };
 		79B7A5E5214C18FC00C0956D /* Decimal+Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5E4214C18FC00C0956D /* Decimal+Number.swift */; };
+		79B7A5E7214F022100C0956D /* String+Digits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5E6214F022100C0956D /* String+Digits.swift */; };
+		79B7A5E9214F02FD00C0956D /* Collection+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5E8214F02FD00C0956D /* Collection+Map.swift */; };
+		79B7A5EB214F03B800C0956D /* Decimal+Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A5EA214F03B800C0956D /* Decimal+Number.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +59,6 @@
 		79B7A5A1214BB62B00C0956D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79B7A5AD214BB69E00C0956D /* CurrencyConverterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterViewController.swift; sourceTree = "<group>"; };
 		79B7A5AF214BB83600C0956D /* CurrencyListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListTableViewController.swift; sourceTree = "<group>"; };
-		79B7A5B2214BB88900C0956D /* CurrencyListResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListResource.swift; sourceTree = "<group>"; };
 		79B7A5B4214BB8A300C0956D /* Requester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requester.swift; sourceTree = "<group>"; };
 		79B7A5B6214BBCB400C0956D /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		79B7A5B8214BBE2900C0956D /* JSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONResource.swift; sourceTree = "<group>"; };
@@ -78,6 +79,9 @@
 		79B7A5E0214C189E00C0956D /* String+Digits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Digits.swift"; sourceTree = "<group>"; };
 		79B7A5E2214C18D000C0956D /* Collection+Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Map.swift"; sourceTree = "<group>"; };
 		79B7A5E4214C18FC00C0956D /* Decimal+Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+Number.swift"; sourceTree = "<group>"; };
+		79B7A5E6214F022100C0956D /* String+Digits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Digits.swift"; sourceTree = "<group>"; };
+		79B7A5E8214F02FD00C0956D /* Collection+Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Map.swift"; sourceTree = "<group>"; };
+		79B7A5EA214F03B800C0956D /* Decimal+Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+Number.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +137,9 @@
 			children = (
 				79B7A59F214BB62B00C0956D /* CurrencyConverterTests.swift */,
 				79B7A5A1214BB62B00C0956D /* Info.plist */,
+				79B7A5E6214F022100C0956D /* String+Digits.swift */,
+				79B7A5E8214F02FD00C0956D /* Collection+Map.swift */,
+				79B7A5EA214F03B800C0956D /* Decimal+Number.swift */,
 			);
 			path = CurrencyConverterTests;
 			sourceTree = "<group>";
@@ -176,7 +183,6 @@
 		79B7A5B1214BB86D00C0956D /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				79B7A5B2214BB88900C0956D /* CurrencyListResource.swift */,
 				79B7A5B4214BB8A300C0956D /* Requester.swift */,
 				79B7A5B6214BBCB400C0956D /* Result.swift */,
 				79B7A5B8214BBE2900C0956D /* JSONResource.swift */,
@@ -362,7 +368,6 @@
 				79B7A5E3214C18D000C0956D /* Collection+Map.swift in Sources */,
 				79B7A5C5214BC19400C0956D /* UIViewController+Container.swift in Sources */,
 				79B7A5B7214BBCB400C0956D /* Result.swift in Sources */,
-				79B7A5B3214BB88900C0956D /* CurrencyListResource.swift in Sources */,
 				79B7A5D2214BE3EB00C0956D /* CurrencyConverter.swift in Sources */,
 				79B7A5E1214C189E00C0956D /* String+Digits.swift in Sources */,
 				79B7A5AE214BB69E00C0956D /* CurrencyConverterViewController.swift in Sources */,
@@ -386,6 +391,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79B7A5E9214F02FD00C0956D /* Collection+Map.swift in Sources */,
+				79B7A5E7214F022100C0956D /* String+Digits.swift in Sources */,
+				79B7A5EB214F03B800C0956D /* Decimal+Number.swift in Sources */,
 				79B7A5A0214BB62B00C0956D /* CurrencyConverterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
