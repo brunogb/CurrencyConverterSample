@@ -16,7 +16,7 @@ class CurrencyListTableViewController: UITableViewController {
     var viewModel: CurrencyListViewModel = .loading {
         didSet {
             DispatchQueue.main.async {
-                self.updateTable(comparingOldData: oldValue)
+                self.refreshTableData(comparingOldData: oldValue)
             }
         }
     }
@@ -45,13 +45,11 @@ class CurrencyListTableViewController: UITableViewController {
         guard let cell = cell as? CurrencyDisplayTableViewCell,
             let currencyViewModel = viewModel.currencyViewModel(for: indexPath) else { return }
         cell.viewModel = currencyViewModel
+        cell.onCurrencyValueChanged = nil
         if currencyViewModel.editable {
             cell.onCurrencyValueChanged = { [unowned self] value in
                 self.currentValueChanged(value)
             }
-        }
-        else {
-            cell.onCurrencyValueChanged = nil
         }
 
     }
@@ -60,11 +58,13 @@ class CurrencyListTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let validViewModel = viewModel.currencyViewModel(for: indexPath) else { return }
         didSelectCurrencyHandler(validViewModel)
-        tableView.scrollToRow(at: CurrencyListViewModel.CurrencyListSection.selectedCurrencyIndexPath, at: .top, animated: true)
+        tableView.scrollToRow(at: CurrencyListTableSection.selectedCurrencyIndexPath,
+                              at: .top,
+                              animated: true)
         
     }
 
-    private func updateTable(comparingOldData oldData: CurrencyListViewModel) {
+    private func refreshTableData(comparingOldData oldData: CurrencyListViewModel) {
         guard viewModel.currency != nil && oldData.currency != nil else {
             tableView.reloadData()
             return
@@ -87,10 +87,10 @@ class CurrencyListTableViewController: UITableViewController {
             let oldSelectedCurrency = oldModel.currency,
             let oldCellIndex = oldModel.index(for: newSelectedCurrency),
             let newIndexForOldSelected = newModel.index(for: oldSelectedCurrency) else { return }
-        let moveFromIndexPath = CurrencyListViewModel.CurrencyListSection.others.indexPath(for: oldCellIndex)
-        let moveToIndexPath = CurrencyListViewModel.CurrencyListSection.selectedCurrencyIndexPath
-        let insertIndexPath = CurrencyListViewModel.CurrencyListSection.others.indexPath(for: newIndexForOldSelected)
-        tableView.deleteRows(at: [CurrencyListViewModel.CurrencyListSection.selectedCurrencyIndexPath], with: .automatic)
+        let moveFromIndexPath = CurrencyListTableSection.others.indexPath(for: oldCellIndex)
+        let moveToIndexPath = CurrencyListTableSection.selectedCurrencyIndexPath
+        let insertIndexPath = CurrencyListTableSection.others.indexPath(for: newIndexForOldSelected)
+        tableView.deleteRows(at: [CurrencyListTableSection.selectedCurrencyIndexPath], with: .automatic)
         tableView.moveRow(at: moveFromIndexPath, to: moveToIndexPath)
         tableView.insertRows(at: [insertIndexPath], with: .automatic)
     }

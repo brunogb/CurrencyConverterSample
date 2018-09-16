@@ -16,21 +16,22 @@ struct CurrencyViewModel {
 
 }
 
+enum CurrencyListTableSection: Int {
+    case principal
+    case others
+
+    static let selectedCurrencyIndexPath: IndexPath = IndexPath(row: 0, section: CurrencyListTableSection.principal.rawValue)
+    func indexPath(for row: Int)-> IndexPath {
+        if case .principal = self { return CurrencyListTableSection.selectedCurrencyIndexPath }
+        return IndexPath(row: row, section: CurrencyListTableSection.others.rawValue)
+    }
+}
+
 enum CurrencyListViewModel {
 
     case loaded(selected: CurrencyViewModel, list: [CurrencyViewModel])
     case loading
-
-    enum CurrencyListSection: Int {
-        case principal
-        case others
-
-        static let selectedCurrencyIndexPath: IndexPath = IndexPath(row: 0, section: CurrencyListSection.principal.rawValue)
-        func indexPath(for row: Int)-> IndexPath {
-            if case .principal = self { return CurrencyListSection.selectedCurrencyIndexPath }
-            return IndexPath(row: row, section: CurrencyListSection.others.rawValue)
-        }
-    }
+    case error
 
 }
 
@@ -42,6 +43,8 @@ extension CurrencyListViewModel {
             return 1
         case .loaded:
             return 2
+        case .error:
+            return 0
         }
     }
 
@@ -69,10 +72,12 @@ extension CurrencyListViewModel {
         switch self {
         case .loading:
             return 0
-        case .loaded where section == CurrencyListSection.principal.rawValue:
+        case .loaded where section == CurrencyListTableSection.principal.rawValue:
             return 1
         case .loaded(_, let list):
             return list.count
+        case .error:
+            return 0
         }
     }
 
@@ -83,18 +88,20 @@ extension CurrencyListViewModel {
     func cellType()-> UITableViewCell.Type {
         switch self {
         case .loading:
-            return UITableViewCell.self
+            return CurrencyDisplayLoadingTableViewCell.self
         case .loaded:
             return CurrencyDisplayTableViewCell.self
+        case .error:
+            return UITableViewCell.self
         }
     }
 
     func currencyViewModel(for indexPath: IndexPath)-> CurrencyViewModel? {
         guard case let .loaded(selected, list) = self else { return nil }
         switch (indexPath.section, indexPath.row) {
-        case (CurrencyListSection.principal.rawValue,_):
+        case (CurrencyListTableSection.principal.rawValue,_):
             return selected
-        case (CurrencyListSection.others.rawValue, _) where indexPath.row < list.count :
+        case (CurrencyListTableSection.others.rawValue, _) where indexPath.row < list.count :
             return list[indexPath.row]
         default:
             return nil

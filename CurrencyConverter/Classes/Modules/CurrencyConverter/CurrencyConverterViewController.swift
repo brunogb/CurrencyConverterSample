@@ -10,13 +10,14 @@ import UIKit
 
 class CurrencyConverterViewController: UIViewController {
 
-    let service: CurrencyConverterService
+   private let service: CurrencyConverterService
 
-    var viewModel: CurrencyConverterViewModel? {
-        didSet {
-            updateTable(with: viewModel)
-        }
-    }
+    private lazy var tableViewController: CurrencyListTableViewController = {
+        let viewController = CurrencyListTableViewController()
+        return viewController
+    }()
+
+    var viewModel: CurrencyConverterViewModel?
 
     init(service: CurrencyConverterService = URLCurrencyConverterService()) {
         self.service = service
@@ -24,11 +25,6 @@ class CurrencyConverterViewController: UIViewController {
     }
     
     required init?(coder aDecoder: NSCoder) { fatalError("Interface builder not allowed") }
-    
-    private lazy var tableViewController: CurrencyListTableViewController = {
-        let viewController = CurrencyListTableViewController()
-        return viewController
-    }()
 
     override func loadView() {
         super.loadView()
@@ -38,12 +34,12 @@ class CurrencyConverterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateTable(with: viewModel)
+        tableViewController.viewModel = .loading
         service.requestUpdates(for: "EUR") { [unowned self] (result) in
             self.handleService(result: result)
         }
         tableViewController.didSelectCurrencyHandler = { [unowned self] currencyModel in
-            self.setupViewModel(from: currencyModel)
+            self.selectCurrency(from: currencyModel)
         }
         tableViewController.currentValueChanged = { [unowned self] value in
             self.viewModel?.value = value
@@ -54,25 +50,42 @@ class CurrencyConverterViewController: UIViewController {
         switch result {
         case .error(let error):
             self.viewModel = nil
-            print("Error: \(error)")
+            handleErrorFromService(error)
             break
         case .success(let converter):
-            self.viewModel = CurrencyConverterViewModel(converter: converter,
-                                                        selectedCurrency: self.viewModel?.selectedCurrency,
-                                                        value: self.viewModel?.value)
+            updateConverter(converter)
         }
     }
 
-    private func setupViewModel(from currencyModel: CurrencyViewModel) {
+    private func updateConverter(_ converter: CurrencyConverter) {
+        let newModel = CurrencyConverterViewModel(converter: converter,
+                                                  selectedCurrency: self.viewModel?.selectedCurrency,
+                                                  value: self.viewModel?.value)
+        self.viewModel = newModel
+        tableViewController.viewModel = newModel.listViewModel()
+    }
+
+    private func handleErrorFromService(_ error: Error) {
+        print("Error: \(error)")
+        if case .error = self.tableViewController.viewModel { return }
+        self.tableViewController.viewModel = .error
+        let errorController = UIAlertController(title: "Error while updating currencies",
+                                                message: "There was an error while we were updating currencies.",
+                                                preferredStyle: .alert)
+        errorController.addAction(UIAlertAction(title: "Close",
+                                                style: .default,
+                                                handler: nil))
+        self.present(errorController,
+                     animated: true,
+                     completion: nil)
+    }
+
+    private func selectCurrency(from currencyModel: CurrencyViewModel) {
         guard let viewModel = self.viewModel else { return }
         let newConverter = viewModel.converter.converterChangingCurrent(currency: currencyModel.currency)
         self.viewModel = CurrencyConverterViewModel(converter: newConverter,
                                                     selectedCurrency: currencyModel.currency,
                                                     value: currencyModel.value)
-    }
-
-    private func updateTable(with model: CurrencyConverterViewModel?) {
-        tableViewController.viewModel = model?.listViewModel() ?? .loading
     }
 
 }

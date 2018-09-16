@@ -6,7 +6,7 @@
 //  Copyright © 2018 Bruno Bilescky. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 struct CurrencyConverter {
 

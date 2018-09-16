@@ -6,7 +6,15 @@
 //  Copyright © 2018 Bruno Bilescky. All rights reserved.
 //
 
-import UIKit
+import Foundation
+
+struct CurrencyConverterListResponse: Decodable {
+
+    let base: String
+    let date: Date
+    let rates: [String: Double]
+
+}
 
 class CurrencyConverterResources {
 

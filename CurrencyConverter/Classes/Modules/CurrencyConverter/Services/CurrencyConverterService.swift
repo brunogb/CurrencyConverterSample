@@ -6,7 +6,7 @@
 //  Copyright © 2018 Bruno Bilescky. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 protocol CurrencyConverterService {
     func requestUpdates(for currency: String, onUpdate: @escaping(Result<CurrencyConverter>) -> Void)

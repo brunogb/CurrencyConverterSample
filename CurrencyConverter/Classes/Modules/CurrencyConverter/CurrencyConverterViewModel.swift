@@ -6,7 +6,7 @@
 //  Copyright © 2018 Bruno Bilescky. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 struct CurrencyConverterViewModel {
 
@@ -21,18 +21,20 @@ struct CurrencyConverterViewModel {
     }
 
     func listViewModel()-> CurrencyListViewModel {
-        let selected = currencyViewModel(currency: selectedCurrency, amount: value, editable: true)
+        let selected = CurrencyViewModel(currency: selectedCurrency,
+                                         value: value,
+                                         editable: true)
         let list: [CurrencyViewModel] = converter.listOfCurrencies.compactMap {
             guard $0.code != selectedCurrency.code else { return nil }
-            return currencyViewModel(currency: $0, amount: value, editable: false)
+            return currencyViewModel(currency: $0, amount: value)
         }
         return .loaded(selected: selected, list: list)
     }
 
-    func currencyViewModel(currency: Currency, amount: Double, editable: Bool)-> CurrencyViewModel {
+    private func currencyViewModel(currency: Currency, amount: Double)-> CurrencyViewModel {
         let viewModel = CurrencyViewModel(currency: currency,
                                           value: converter.convert(to: currency, amount: amount),
-                                          editable: editable)
+                                          editable: false)
         return viewModel
     }
 
