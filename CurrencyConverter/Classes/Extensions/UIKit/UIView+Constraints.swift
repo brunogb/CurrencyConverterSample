@@ -15,8 +15,13 @@ public protocol EdgeLayoutable {
     var trailingAnchor: NSLayoutXAxisAnchor { get }
 }
 
-extension UIView: EdgeLayoutable { }
-extension UILayoutGuide: EdgeLayoutable { }
+public protocol CenterLayoutable {
+    var centerXAnchor: NSLayoutXAxisAnchor { get }
+    var centerYAnchor: NSLayoutYAxisAnchor { get }
+}
+
+extension UIView: EdgeLayoutable, CenterLayoutable { }
+extension UILayoutGuide: EdgeLayoutable, CenterLayoutable { }
 
 
 extension UIView {
@@ -28,6 +33,11 @@ extension UIView {
             self.trailingAnchor.constraint(equalTo: layoutable.trailingAnchor, constant: -insets.right),
             self.bottomAnchor.constraint(equalTo: layoutable.bottomAnchor, constant: -insets.bottom)
             ])
+    }
+
+    public func centerIn(_ layoutable: CenterLayoutable, offset: CGPoint = .zero) {
+        self.centerXAnchor.constraint(equalTo: layoutable.centerXAnchor, constant: offset.x)
+        self.centerYAnchor.constraint(equalTo: layoutable.centerYAnchor, constant: offset.y)
     }
 
 }
