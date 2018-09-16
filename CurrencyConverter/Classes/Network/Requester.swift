@@ -20,15 +20,19 @@ class RequestToken {
     }
 }
 
-class Requester {
+protocol Requester {
+    typealias Callback<R> = (Result<R>)-> Void
+    func request<R>(resource: JSONResource<R>, callback: @escaping Callback<R>)-> RequestToken? where R: Decodable
+}
 
-    static let `default`: Requester = Requester(base: URL(string: "https://revolut.duckdns.org")!)
+class URLRequester: Requester {
+
+    static let `default`: Requester = URLRequester(base: URL(string: "https://revolut.duckdns.org")!)
 
     enum NetworkError: Error {
         case missingData
     }
 
-    typealias Callback<R> = (Result<R>)-> Void
     private let session: URLSession
     private let base: URL
 

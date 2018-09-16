@@ -18,7 +18,7 @@ class CurrencyConverterViewController: UIViewController {
         }
     }
 
-    init(service: CurrencyConverterService = CurrencyConverterService()) {
+    init(service: CurrencyConverterService = URLCurrencyConverterService()) {
         self.service = service
         super.init(nibName: nil, bundle: nil)
     }

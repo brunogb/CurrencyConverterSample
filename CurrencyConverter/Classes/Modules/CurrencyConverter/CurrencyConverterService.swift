@@ -8,13 +8,17 @@
 
 import UIKit
 
-class CurrencyConverterService {
+protocol CurrencyConverterService {
+    func requestUpdates(for currency: String, onUpdate: @escaping(Result<CurrencyConverter>) -> Void)
+}
+
+class URLCurrencyConverterService: CurrencyConverterService {
 
     let requester: Requester
 
     var currentToken: RequestToken?
 
-    init(requester: Requester = .default) {
+    init(requester: Requester = URLRequester.default) {
         self.requester = requester
     }
 
