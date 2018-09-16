@@ -70,7 +70,7 @@ class CurrencyListTableViewController: UITableViewController {
             return
         }
         tableView.beginUpdates()
-        if !viewModel.sameSelectedCurrency(as: oldData) {
+        if viewModel.currency != oldData.currency {
             moveSelectedCurrencyRowUp(from: oldData, to: viewModel)
         }
         tableView.endUpdates()

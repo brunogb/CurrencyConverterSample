@@ -81,10 +81,6 @@ extension CurrencyListViewModel {
         }
     }
 
-    func sameSelectedCurrency(as otherModel: CurrencyListViewModel)-> Bool {
-        return currency == otherModel.currency
-    }
-
     func cellType()-> UITableViewCell.Type {
         switch self {
         case .loading:
