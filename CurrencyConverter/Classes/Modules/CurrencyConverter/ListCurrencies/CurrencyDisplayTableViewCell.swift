@@ -8,34 +8,34 @@
 
 import UIKit
 
-class CurrencyDisplayTableViewCell: UITableViewCell, UITextFieldDelegate {
+protocol CurrencyListCell: class {
+    var viewModel: CurrencyViewModel? { get set }
+}
+
+class CurrencyDisplayTableViewCell: UITableViewCell, UITextFieldDelegate, CurrencyListCell {
 
     var viewModel: CurrencyViewModel? {
         didSet {
             textLabel?.text = viewModel?.currency.code
             detailTextLabel?.text = viewModel?.currency.name
-            moneyTextField.doubleValue = viewModel?.value ?? 0
-            moneyTextField.isEnabled = viewModel?.editable ?? false
+            moneyField.text = viewModel?.formattedValue
         }
     }
 
     var onCurrencyValueChanged: ((Double)-> Void)?
 
-    private lazy var moneyTextField: CurrencyTextField = {
-        let textField = CurrencyTextField(frame: .zero)
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.textAlignment = .right
-        textField.keyboardType = .decimalPad
-        textField.delegate = self
-        textField.widthAnchor.constraint(lessThanOrEqualToConstant: 160).isActive = true
-        textField.addTarget(self, action: #selector(handleEditingChanged), for: .editingChanged)
-        return textField
+    private lazy var moneyField: UILabel = {
+        let field = UILabel(frame: .zero)
+        field.translatesAutoresizingMaskIntoConstraints = false
+        field.textAlignment = .right
+        field.widthAnchor.constraint(lessThanOrEqualToConstant: 160).isActive = true
+        return field
     }()
 
     private lazy var textAccessoryView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 120, height: 40))
-        view.addSubview(moneyTextField)
-        moneyTextField.snapToEdges(of: view)
+        view.addSubview(moneyField)
+        moneyField.snapToEdges(of: view)
         return view
     }()
 
@@ -49,10 +49,6 @@ class CurrencyDisplayTableViewCell: UITableViewCell, UITextFieldDelegate {
     override func prepareForReuse() {
         super.prepareForReuse()
         viewModel = nil
-    }
-
-    @objc private func handleEditingChanged() {
-        onCurrencyValueChanged?(moneyTextField.doubleValue)
     }
 
 }

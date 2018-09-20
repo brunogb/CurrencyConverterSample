@@ -37,21 +37,20 @@ class CurrencyListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(type: viewModel.cellType(), indexPath: indexPath)
-        return cell
-    }
-
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let cell = cell as? CurrencyDisplayTableViewCell,
-            let currencyViewModel = viewModel.currencyViewModel(for: indexPath) else { return }
-        cell.viewModel = currencyViewModel
-        cell.onCurrencyValueChanged = nil
-        if currencyViewModel.editable {
+        let cell = tableView.dequeue(type: viewModel.cellType(forIndexPath: indexPath), indexPath: indexPath)
+        if let cell = cell as? CurrencyListEditTableViewCell {
             cell.onCurrencyValueChanged = { [unowned self] value in
                 self.currentValueChanged(value)
             }
         }
+        return cell
+    }
 
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? CurrencyListCell,
+            let currencyViewModel = viewModel.currencyViewModel(for: indexPath) {
+            cell.viewModel = currencyViewModel
+        }
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -69,17 +68,34 @@ class CurrencyListTableViewController: UITableViewController {
             tableView.reloadData()
             return
         }
-        tableView.beginUpdates()
         if viewModel.currency != oldData.currency {
+            tableView.beginUpdates()
             moveSelectedCurrencyRowUp(from: oldData, to: viewModel)
+            tableView.endUpdates()
         }
-        tableView.endUpdates()
-        for cell in tableView.visibleCells {
-            guard let cell = cell as? CurrencyDisplayTableViewCell,
-                let indexPath = tableView.indexPath(for: cell) else { continue }
-            tableView(tableView, willDisplay: cell, forRowAt: indexPath)
+        updateVisibleCells(of: tableView)
+    }
 
-        }
+    private func updateVisibleCells(of tableView: UITableView) {
+        let cells = tableView.visibleCells
+        cells.filter({ $0 is CurrencyListCell })
+            .compactMap({ (cell)-> (UITableViewCell, IndexPath)? in
+                if let indexPath = tableView.indexPath(for: cell) {
+                    return (cell, indexPath)
+                }
+                return nil
+            })
+            .compactMap({ (cell, indexPath)-> (CurrencyListCell, CurrencyViewModel)? in
+                if let viewModel = self.viewModel.currencyViewModel(for: indexPath),
+                    let cell = cell as? CurrencyListCell {
+                    return (cell, viewModel)
+                }
+                return nil
+            })
+            .forEach( { (pair) in
+                let (cell, viewModel) = pair
+                cell.viewModel = viewModel
+            })
     }
 
     private func moveSelectedCurrencyRowUp(from oldModel: CurrencyListViewModel, to newModel: CurrencyListViewModel) {

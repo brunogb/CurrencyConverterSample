@@ -12,7 +12,13 @@ struct CurrencyViewModel {
 
     let currency: Currency
     let value: Double
-    let editable: Bool
+    let formattedValue: String?
+
+    init(currency: Currency, value: Double){
+        self.currency = currency
+        self.value = value
+        self.formattedValue = Formatter.currency.string(for: value)
+    }
 
 }
 
@@ -81,10 +87,12 @@ extension CurrencyListViewModel {
         }
     }
 
-    func cellType()-> UITableViewCell.Type {
+    func cellType(forIndexPath indexPath: IndexPath)-> UITableViewCell.Type {
         switch self {
         case .loading:
             return CurrencyDisplayLoadingTableViewCell.self
+        case .loaded where indexPath.section == CurrencyListTableSection.principal.rawValue:
+            return CurrencyListEditTableViewCell.self
         case .loaded:
             return CurrencyDisplayTableViewCell.self
         case .error:

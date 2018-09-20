@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		792CEE392152FEA400EA408C /* CurrencyListEditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792CEE382152FEA400EA408C /* CurrencyListEditTableViewCell.swift */; };
 		79B7A58B214BB62700C0956D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7A58A214BB62700C0956D /* AppDelegate.swift */; };
 		79B7A592214BB62B00C0956D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79B7A591214BB62B00C0956D /* Assets.xcassets */; };
 		79B7A595214BB62B00C0956D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79B7A593214BB62B00C0956D /* LaunchScreen.storyboard */; };
@@ -53,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		792CEE382152FEA400EA408C /* CurrencyListEditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListEditTableViewCell.swift; sourceTree = "<group>"; };
 		79B7A587214BB62700C0956D /* CurrencyConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79B7A58A214BB62700C0956D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79B7A591214BB62B00C0956D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				79B7A5C9214BCEF700C0956D /* CurrencyListViewModel.swift */,
 				79B7A5CD214BD56900C0956D /* CurrencyDisplayTableViewCell.swift */,
 				79B7A5F0214F0B1300C0956D /* CurrencyDisplayLoadingTableViewCell.swift */,
+				792CEE382152FEA400EA408C /* CurrencyListEditTableViewCell.swift */,
 			);
 			path = ListCurrencies;
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 				79B7A5E3214C18D000C0956D /* Collection+Map.swift in Sources */,
 				79B7A5C5214BC19400C0956D /* UIViewController+Container.swift in Sources */,
 				79B7A5F1214F0B1300C0956D /* CurrencyDisplayLoadingTableViewCell.swift in Sources */,
+				792CEE392152FEA400EA408C /* CurrencyListEditTableViewCell.swift in Sources */,
 				79B7A5B7214BBCB400C0956D /* Result.swift in Sources */,
 				79B7A5D2214BE3EB00C0956D /* CurrencyConverter.swift in Sources */,
 				79B7A5E1214C189E00C0956D /* String+Digits.swift in Sources */,

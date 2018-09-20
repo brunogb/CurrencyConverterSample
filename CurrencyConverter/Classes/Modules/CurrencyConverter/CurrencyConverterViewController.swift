@@ -53,16 +53,16 @@ class CurrencyConverterViewController: UIViewController {
             handleErrorFromService(error)
             break
         case .success(let converter):
-            updateConverter(converter)
+            updateWithConverter(converter)
         }
     }
 
-    private func updateConverter(_ converter: CurrencyConverter) {
-        let newModel = CurrencyConverterViewModel(converter: converter,
-                                                  selectedCurrency: self.viewModel?.selectedCurrency,
+    private func updateWithConverter(_ converter: CurrencyConverter) {
+        let updatedConverter = self.viewModel.map({ converter.converterChangingCurrent(currency: $0.selectedCurrency) })
+        let converterWithCurrentCurrency = updatedConverter ?? converter
+        let newModel = CurrencyConverterViewModel(converter: converterWithCurrentCurrency,
                                                   value: self.viewModel?.value)
-        self.viewModel = newModel
-        tableViewController.viewModel = newModel.listViewModel()
+        setNew(viewModel: newModel)
     }
 
     private func handleErrorFromService(_ error: Error) {
@@ -80,12 +80,16 @@ class CurrencyConverterViewController: UIViewController {
                      completion: nil)
     }
 
+    private func setNew(viewModel: CurrencyConverterViewModel) {
+        self.viewModel = viewModel
+        tableViewController.viewModel = viewModel.listViewModel()
+    }
+
     private func selectCurrency(from currencyModel: CurrencyViewModel) {
         guard let viewModel = self.viewModel else { return }
         let newConverter = viewModel.converter.converterChangingCurrent(currency: currencyModel.currency)
-        self.viewModel = CurrencyConverterViewModel(converter: newConverter,
-                                                    selectedCurrency: currencyModel.currency,
-                                                    value: currencyModel.value)
+        setNew(viewModel: CurrencyConverterViewModel(converter: newConverter,
+                                                     value: currencyModel.value))
     }
 
 }
