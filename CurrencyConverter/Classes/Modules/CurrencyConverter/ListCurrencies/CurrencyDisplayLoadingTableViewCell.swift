@@ -12,15 +12,19 @@ class CurrencyDisplayLoadingTableViewCell: UITableViewCell {
 
     lazy var loadingIndicator: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .whiteLarge)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 40).isActive = true
         view.color = .darkGray
-        view.startAnimating()
+        view.hidesWhenStopped = false
         return view
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(loadingIndicator)
-        loadingIndicator.centerIn(contentView)
+        self.addSubview(loadingIndicator)
+        loadingIndicator.centerIn(self)
+
     }
     
     required init?(coder aDecoder: NSCoder) { fatalError("Interface builder not allowed") }

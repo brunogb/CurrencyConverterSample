@@ -36,8 +36,10 @@ extension UIView {
     }
 
     public func centerIn(_ layoutable: CenterLayoutable, offset: CGPoint = .zero) {
-        self.centerXAnchor.constraint(equalTo: layoutable.centerXAnchor, constant: offset.x)
-        self.centerYAnchor.constraint(equalTo: layoutable.centerYAnchor, constant: offset.y)
+        NSLayoutConstraint.activate([
+            self.centerXAnchor.constraint(equalTo: layoutable.centerXAnchor, constant: offset.x),
+            self.centerYAnchor.constraint(equalTo: layoutable.centerYAnchor, constant: offset.y)
+        ])
     }
 
 }

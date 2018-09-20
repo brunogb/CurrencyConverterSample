@@ -74,10 +74,21 @@ extension CurrencyListViewModel {
         })
     }
 
+    func cellHeight(forIndexPath indexPath: IndexPath, tableView: UITableView)-> CGFloat {
+        switch self {
+        case .loading:
+            return tableView.bounds.height
+        case .loaded:
+            return 70
+        case .error:
+            return 0
+        }
+    }
+
     func numberOfRows(in section: Int)-> Int {
         switch self {
         case .loading:
-            return 0
+            return 1
         case .loaded where section == CurrencyListTableSection.principal.rawValue:
             return 1
         case .loaded(_, let list):

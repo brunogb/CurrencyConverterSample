@@ -23,9 +23,9 @@ class CurrencyListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = 64
         tableView.separatorStyle = .none
         tableView.keyboardDismissMode = .interactive
+        tableView.reloadData()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -51,6 +51,9 @@ class CurrencyListTableViewController: UITableViewController {
             let currencyViewModel = viewModel.currencyViewModel(for: indexPath) {
             cell.viewModel = currencyViewModel
         }
+        else if let cell = cell as? CurrencyDisplayLoadingTableViewCell {
+            cell.loadingIndicator.startAnimating()
+        }
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -61,6 +64,15 @@ class CurrencyListTableViewController: UITableViewController {
                               at: .top,
                               animated: true)
         
+    }
+
+    override func tableView(_ tableView: UITableView, canFocusRowAt indexPath: IndexPath) -> Bool {
+        if case .loading = viewModel { return false }
+        return true
+    }
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return viewModel.cellHeight(forIndexPath: indexPath, tableView: tableView)
     }
 
     private func refreshTableData(comparingOldData oldData: CurrencyListViewModel) {
